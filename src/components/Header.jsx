@@ -5,7 +5,9 @@ function Header() {
     <>
       <header className="my-container navbar bg-base-100">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl">Kitchen</a>
+          <NavLink className="btn btn-ghost text-xl" to="/">
+            Kitchen
+          </NavLink>
         </div>
         <div className="flex-none gap-2">
           <div className="dropdown dropdown-end">
@@ -25,6 +27,9 @@ function Header() {
               tabIndex={0}
               className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
             >
+              <li>
+                <NavLink to="/create">Create recipe</NavLink>
+              </li>
               <li>
                 <a>Change theme</a>
               </li>
