@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html class="h-full" lang="en">
   <head>
     <meta charset="UTF-8" />
     <!-- FAVICON  -->
@@ -23,13 +23,13 @@
         const theme = localStorage.getItem(element);
         document.documentElement.setAttribute(
           dataTheme,
-          theme ? theme : defaultTheme
+          theme ? theme : defaultTheme,
         );
       };
     </script>
   </head>
-  <body>
-    <div id="root"></div>
+  <body class="h-full">
+    <div class="flex h-full flex-col" id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
