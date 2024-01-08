@@ -2,7 +2,7 @@ import { useState } from "react";
 
 function ThemeController({ themes }) {
   const [currentTheme, setCurrentTheme] = useState(
-    localStorage.getItem("theme"),
+    localStorage.getItem("theme") || "default",
   );
   function themeChanger(theme) {
     const root = document.documentElement;
