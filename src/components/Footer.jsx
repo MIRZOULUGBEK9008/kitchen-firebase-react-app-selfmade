@@ -5,7 +5,7 @@ function Footer() {
     <footer className="footer footer-center bg-base-300 p-4 text-base-content">
       <aside>
         <p>
-          Copyright © {new Date().getFullYear()} - All right reserved by
+          Copyright &copy; {new Date().getFullYear()} - All right reserved by
           <a
             className="btn-link ml-2"
             href="https://github.com/mirzoulugbek9008"
