@@ -15,6 +15,7 @@ function Signup() {
               type="text"
               name="displayName"
               placeholder="User name"
+              required
             />
           </label>
           <label>
@@ -24,6 +25,7 @@ function Signup() {
               type="email"
               name="email"
               placeholder="example@email.com"
+              required
             />
           </label>
           <label>
@@ -33,6 +35,7 @@ function Signup() {
               type="password"
               name="password"
               placeholder="Password"
+              required
             />
           </label>
           <Button style={primary} text={"Signup"} type={"submit"}>

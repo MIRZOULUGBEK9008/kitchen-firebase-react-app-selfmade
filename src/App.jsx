@@ -12,7 +12,7 @@ import Signup from "./pages/Signup";
 import ChangeTheme from "./pages/ChangeTheme";
 
 function App() {
-  const user = null;
+  const user = false;
   const isPending = true;
   const routes = createBrowserRouter([
     {
