@@ -9,6 +9,7 @@ import ProtectedRoutes from "./layouts/ProtectedRoutes";
 import Create from "./pages/Create";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import ChangeTheme from "./pages/ChangeTheme";
 
 function App() {
   const user = true;
@@ -30,6 +31,10 @@ function App() {
         {
           path: "/create",
           element: <Create />,
+        },
+        {
+          path: "/change-theme",
+          element: <ChangeTheme />,
         },
       ],
     },
