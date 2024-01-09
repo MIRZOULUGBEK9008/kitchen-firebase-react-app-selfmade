@@ -33,11 +33,11 @@ function App() {
         },
         {
           path: "/create",
-          element: <Create />,
+          element: user ? <Create /> : <Navigate to="/signup" />,
         },
         {
           path: "/change-theme",
-          element: <ChangeTheme />,
+          element: user ? <ChangeTheme /> : <Navigate to="/signup" />,
         },
       ],
     },
