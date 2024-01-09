@@ -1,8 +1,15 @@
 import { NavLink } from "react-router-dom";
 import Button from "../components/Button";
-import { link, neutral, primary } from "../utils/getButtonTypes";
+import { primary } from "../utils/getButtonTypes";
+import { useLogin } from "../hooks/useLogin";
+import { useGlobalContext } from "../hooks/useGlobalContext";
 
 function Signup() {
+  const { isPending } = useGlobalContext();
+  const { loginWithGoogleProvider } = useLogin();
+  function handleClick() {
+    loginWithGoogleProvider();
+  }
   return (
     <div className="mx-auto flex h-full w-full max-w-sm items-center">
       <div className="flex w-full flex-col">
@@ -41,9 +48,17 @@ function Signup() {
           <Button style={primary} text={"Signup"} type={"submit"}>
             <span className="loading loading-dots"></span>
           </Button>
-          <Button style={neutral} text={"Google"}>
-            <span className="loading loading-dots"></span>
-          </Button>
+          <button
+            className="btn btn-neutral"
+            disabled={isPending ? true : false}
+            onClick={handleClick}
+          >
+            {isPending ? (
+              <span className="loading loading-dots"></span>
+            ) : (
+              "Google"
+            )}
+          </button>
           <NavLink className="btn btn-secondary" to="/login">
             I have an account
           </NavLink>

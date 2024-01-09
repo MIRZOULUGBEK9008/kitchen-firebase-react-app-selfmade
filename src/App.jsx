@@ -10,10 +10,13 @@ import Create from "./pages/Create";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ChangeTheme from "./pages/ChangeTheme";
+import { useGlobalContext } from "./hooks/useGlobalContext";
+import { onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
+import { auth } from "./firebase/firebaseConfig";
 
 function App() {
-  const user = false;
-  const isPending = true;
+  const { user, dispatch, isAuthReady } = useGlobalContext();
   const routes = createBrowserRouter([
     {
       path: "/",
@@ -47,7 +50,16 @@ function App() {
       element: user ? <Navigate to="/" /> : <Signup />,
     },
   ]);
-  return <>{isPending && <RouterProvider router={routes} />}</>;
+
+  // Remember login
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      dispatch({ type: "LOGIN", payload: user });
+      dispatch({ type: "IS_AUTH_READY", payload: true });
+    });
+  }, []);
+
+  return isAuthReady && <RouterProvider router={routes} />;
 }
 
 export default App;

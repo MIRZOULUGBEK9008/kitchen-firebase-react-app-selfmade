@@ -1,11 +1,7 @@
-function Button({ type, text, style, pending, children }) {
+function Button({ type, text, style }) {
   return (
-    <button
-      className={`btn ${style}`}
-      type={type ? type : "button"}
-      disabled={pending}
-    >
-      {pending ? children : text}
+    <button className={`btn ${style}`} type={type ? type : "button"}>
+      {text}
     </button>
   );
 }
