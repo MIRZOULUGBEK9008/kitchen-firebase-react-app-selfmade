@@ -1,8 +1,18 @@
 import { NavLink } from "react-router-dom";
 import { useGlobalContext } from "../hooks/useGlobalContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/firebaseConfig";
+import { toast } from "react-toastify";
 
 function Header() {
   const { user } = useGlobalContext();
+  function logout() {
+    signOut(auth)
+      .then(() => toast.success("Signout succesfully :)"))
+      .catch(({ message }) => {
+        toast.error(message);
+      });
+  }
   return (
     <>
       <header className="navbar bg-base-100 shadow">
@@ -41,7 +51,7 @@ function Header() {
                     <NavLink to="/change-theme">Change theme</NavLink>
                   </li>
                   <li>
-                    <button>Logout</button>
+                    <button onClick={logout}>Logout</button>
                   </li>
                 </ul>
               </div>

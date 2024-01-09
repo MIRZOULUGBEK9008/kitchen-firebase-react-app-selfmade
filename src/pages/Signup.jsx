@@ -3,18 +3,25 @@ import Button from "../components/Button";
 import { primary } from "../utils/getButtonTypes";
 import { useLogin } from "../hooks/useLogin";
 import { useGlobalContext } from "../hooks/useGlobalContext";
+import { getFormData } from "../utils/getFormData";
 
 function Signup() {
   const { isPending } = useGlobalContext();
-  const { loginWithGoogleProvider } = useLogin();
+  const { loginWithGoogleProvider, loginWithDisplayNameAndEmailAndPassword } =
+    useLogin();
   function handleClick() {
     loginWithGoogleProvider();
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    const data = getFormData(e.target);
+    loginWithDisplayNameAndEmailAndPassword(data);
   }
   return (
     <div className="mx-auto flex h-full w-full max-w-sm items-center">
       <div className="flex w-full flex-col">
         <h2 className="mb-5 text-center text-2xl font-semibold">Signup</h2>
-        <form className="flex flex-col gap-5">
+        <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
           <label>
             <span className="mb-2 font-semibold">User name:</span>
             <input
@@ -22,6 +29,16 @@ function Signup() {
               type="text"
               name="displayName"
               placeholder="User name"
+              required
+            />
+          </label>
+          <label>
+            <span className="mb-2 font-semibold">Photo URL:</span>
+            <input
+              className="input input-bordered input-primary w-full"
+              type="url"
+              name="photoURL"
+              placeholder="Photo URL"
               required
             />
           </label>

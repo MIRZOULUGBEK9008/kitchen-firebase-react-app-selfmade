@@ -3,18 +3,26 @@ import Button from "../components/Button";
 import { primary } from "../utils/getButtonTypes";
 import { useGlobalContext } from "../hooks/useGlobalContext";
 import { useLogin } from "../hooks/useLogin";
+import { getFormData } from "../utils/getFormData";
+import { useRef } from "react";
 
 function Login() {
   const { isPending } = useGlobalContext();
-  const { loginWithGoogleProvider } = useLogin();
+  const form = useRef(null);
+  const { loginWithGoogleProvider, loginWithEmailAndPassword } = useLogin();
   function handleClick() {
     loginWithGoogleProvider();
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    const data = getFormData(form.current);
+    loginWithEmailAndPassword(data);
   }
   return (
     <div className="mx-auto flex h-full w-full max-w-sm items-center">
       <div className="flex w-full flex-col">
         <h2 className="mb-5 text-center text-2xl font-semibold">Login</h2>
-        <form className="flex flex-col gap-5">
+        <form className="flex flex-col gap-5" ref={form} onClick={handleSubmit}>
           <label>
             <span className="mb-2 font-semibold">Email:</span>
             <input
@@ -35,9 +43,7 @@ function Login() {
               required
             />
           </label>
-          <Button style={primary} text={"Login"} type={"submit"}>
-            <span className="loading loading-dots"></span>
-          </Button>
+          <Button style={primary} text={"Login"} type={"submit"}></Button>
           <button
             className="btn btn-neutral"
             disabled={isPending ? true : false}
