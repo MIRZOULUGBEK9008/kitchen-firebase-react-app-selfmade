@@ -1,27 +1,30 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import uniqid from "uniqid";
 import { toast } from "react-toastify";
 
-function Images() {
-  const [images, setImages] = useState([]);
+function Images({ images, setImages }) {
   const imageInput = useRef(null);
 
   function addImage() {
     const newUrl = imageInput.current.value.trim();
-    try {
-      const id = uniqid();
-      const validURL = new URL(newUrl);
-      if (!validURL) throw new Error("You must enter valid URL");
-      else {
-        if (images.length < 8) {
-          setImages((prev) => [...images, { id, validURL }]);
-        } else {
-          toast.info("You can not upload image more than 8");
+    if (newUrl.length > 0) {
+      try {
+        const id = uniqid();
+        const validURL = new URL(newUrl);
+        if (!validURL) throw new Error("You must enter valid URL");
+        else {
+          if (images.length < 8) {
+            setImages((prev) => [...images, { id, validURL }]);
+          } else {
+            toast.info("You can not upload image more than 8");
+          }
+          imageInput.current.value = "";
         }
-        imageInput.current.value = "";
+      } catch ({ message }) {
+        toast.info(message);
       }
-    } catch ({ message }) {
-      toast.info(message);
+    } else {
+      toast.info("Empty input, please fill");
     }
     imageInput.current.focus();
   }

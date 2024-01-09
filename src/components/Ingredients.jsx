@@ -1,9 +1,8 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import uniqid from "uniqid";
 import { toast } from "react-toastify";
 
-function Ingredients() {
-  const [ingredients, setIngredients] = useState([]);
+function Ingredients({ ingredients, setIngredients }) {
   const ingredientInput = useRef(null);
   function addIngredients() {
     let newIngredient = ingredientInput.current.value.toLowerCase().trim();
