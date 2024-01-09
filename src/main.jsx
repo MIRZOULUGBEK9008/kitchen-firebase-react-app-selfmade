@@ -11,6 +11,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <GlobalContextProvider>
       <App />
     </GlobalContextProvider>
-    <ToastContainer />
+    <ToastContainer limit={4} />
   </>,
 );
