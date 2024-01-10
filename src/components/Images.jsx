@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { toast } from "react-toastify";
+import { isIncludeItemThisArr } from "../utils/isIncludeItemThisArr";
 
 function Images({ images, setImages }) {
   const imageInput = useRef(null);
@@ -14,7 +15,11 @@ function Images({ images, setImages }) {
             const imageURL = validURL.href;
             const imageRegex = /\.(jpg|jpeg|png|gif|bmp|svg)$/i;
             if (imageRegex.test(imageURL)) {
-              setImages((prev) => [...prev, imageURL]);
+              if (!isIncludeItemThisArr(images, imageURL)) {
+                setImages((prev) => [...prev, imageURL]);
+              } else {
+                toast.info("This picture already exist");
+              }
             } else {
               toast.warn("It is not valid image URL");
             }
@@ -34,7 +39,7 @@ function Images({ images, setImages }) {
 
   function deleteImage(imageId) {
     setImages((prev) => {
-      const images = prev.filter(({ id }) => id !== imageId);
+      const images = prev.filter((id) => id !== imageId);
       return images;
     });
   }

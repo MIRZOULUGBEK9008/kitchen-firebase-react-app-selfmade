@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { toast } from "react-toastify";
+import { isIncludeItemThisArr } from "../utils/isIncludeItemThisArr";
 
 function Ingredients({ ingredients, setIngredients }) {
   const ingredientInput = useRef(null);
@@ -8,7 +9,11 @@ function Ingredients({ ingredients, setIngredients }) {
     newIngredient =
       newIngredient.charAt(0).toUpperCase() + newIngredient.slice(1);
     if (newIngredient.length > 2 && ingredients.length < 20) {
-      setIngredients((prev) => [...prev, newIngredient]);
+      if (!isIncludeItemThisArr(ingredients, newIngredient)) {
+        setIngredients((prev) => [...prev, newIngredient]);
+      } else {
+        toast.info("This ingredient already exist");
+      }
       ingredientInput.current.value = "";
     } else {
       if (!(newIngredient.length > 2)) {
@@ -22,7 +27,7 @@ function Ingredients({ ingredients, setIngredients }) {
 
   function deleteIngredient(ingredientId) {
     setIngredients((prev) => {
-      const ingredients = prev.filter(({ id }) => id !== ingredientId);
+      const ingredients = prev.filter((id) => id !== ingredientId);
       return ingredients;
     });
   }
