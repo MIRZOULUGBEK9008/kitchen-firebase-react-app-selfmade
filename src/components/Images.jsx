@@ -1,20 +1,18 @@
 import { useRef } from "react";
-import uniqid from "uniqid";
 import { toast } from "react-toastify";
 
 function Images({ images, setImages }) {
   const imageInput = useRef(null);
-
   function addImage() {
     const newUrl = imageInput.current.value.trim();
     if (newUrl.length > 0) {
       try {
-        const id = uniqid();
         const validURL = new URL(newUrl);
         if (!validURL) throw new Error("You must enter valid URL");
         else {
           if (images.length < 8) {
-            setImages((prev) => [...images, { id, validURL }]);
+            const imageURL = validURL.href;
+            setImages((prev) => [...prev, imageURL]);
           } else {
             toast.info("You can not upload image more than 8");
           }
@@ -61,18 +59,18 @@ function Images({ images, setImages }) {
         <span>Images: </span>
         {images.length > 0 ? (
           <ul className="flex flex-wrap gap-2">
-            {images.map(({ validURL, id }) => {
+            {images.map((imageURL) => {
               return (
-                <li key={id} className="avatar relative">
+                <li key={imageURL} className="avatar relative">
                   <button
                     className="btn btn-circle  btn-xs absolute right-1 top-1"
                     type="button"
-                    onClick={() => deleteImage(id)}
+                    onClick={() => deleteImage(imageURL)}
                   >
                     ✕
                   </button>
                   <div className="w-24 rounded-xl">
-                    <img src={validURL} />
+                    <img src={imageURL} />
                   </div>
                 </li>
               );

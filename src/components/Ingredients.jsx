@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import uniqid from "uniqid";
 import { toast } from "react-toastify";
 
 function Ingredients({ ingredients, setIngredients }) {
@@ -8,13 +7,12 @@ function Ingredients({ ingredients, setIngredients }) {
     let newIngredient = ingredientInput.current.value.toLowerCase().trim();
     newIngredient =
       newIngredient.charAt(0).toUpperCase() + newIngredient.slice(1);
-    if (newIngredient.length > 3 && ingredients.length < 20) {
-      const id = uniqid();
-      setIngredients((prev) => [...prev, { newIngredient, id }]);
+    if (newIngredient.length > 2 && ingredients.length < 20) {
+      setIngredients((prev) => [...prev, newIngredient]);
       ingredientInput.current.value = "";
     } else {
-      if (!(newIngredient.length > 3)) {
-        toast.info("Ingredients name must be at least 4 character");
+      if (!(newIngredient.length > 2)) {
+        toast.info("Ingredients name must be at least 3 character");
       } else {
         toast.info("You can not add more than 20 item");
       }
@@ -56,11 +54,14 @@ function Ingredients({ ingredients, setIngredients }) {
         <span>Ingredients: </span>
         {ingredients.length > 0 ? (
           <ul className="flex flex-wrap gap-1">
-            {ingredients.map(({ newIngredient, id }) => {
+            {ingredients.map((newIngredient) => {
               return (
-                <li key={id}>
+                <li key={newIngredient}>
                   <div className="badge badge-info gap-2">
-                    <button type="button" onClick={() => deleteIngredient(id)}>
+                    <button
+                      type="button"
+                      onClick={() => deleteIngredient(newIngredient)}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"

@@ -4,10 +4,18 @@ import Ingredients from "../components/Ingredients";
 import { getFormData } from "../utils/getFormData";
 import { dataCollector } from "../utils/dataCollector";
 import { toast } from "react-toastify";
+import { useAddNewRecipe } from "../hooks/useAddNewRecipe";
+import { useGlobalContext } from "../hooks/useGlobalContext";
+import { useNavigate } from "react-router-dom";
 
 function Create() {
+  const { user } = useGlobalContext();
+  const { addNewDoc, isPending } = useAddNewRecipe();
+
   const [ingredients, setIngredients] = useState([]);
   const [images, setImages] = useState([]);
+
+  const navigate = useNavigate();
   function handleSubmit(e) {
     e.preventDefault();
     const data = getFormData(e.target);
@@ -20,6 +28,15 @@ function Create() {
         images,
         createdDate,
       });
+      addNewDoc("recipes", { uid: user.uid, ...allRecipeData })
+        .then(() => {
+          toast.success("Added new recipe succesfully :)");
+          navigate("/");
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.warn(error.message);
+        });
     } else {
       if (!(ingredientsLength > 2)) {
         toast.info("You must enter at least 3 ingredients of meal");
@@ -29,6 +46,9 @@ function Create() {
       }
     }
   }
+
+  function ingredientsAndImagesCollector(data) {}
+
   return (
     <div className="mx-auto max-w-xl py-10">
       <h2 className="mb-5 text-center text-2xl font-semibold capitalize">
@@ -44,17 +64,19 @@ function Create() {
             placeholder="Enter your meal name"
             min="4"
             max="100"
+            required
           />
         </label>
         <label className="flex flex-col items-start">
           <span className="mb-1 font-semibold">Cooking time:</span>
           <input
             className="input input-bordered input-md w-full"
-            name="time"
+            name="cookingTime"
             type="number"
             placeholder="Enter preparation time of your meal"
             min="3"
             max="3600"
+            required
           />
         </label>
         <Ingredients
@@ -74,7 +96,13 @@ function Create() {
           ></textarea>
         </label>
         <div className="flex w-full justify-between">
-          <button className="btn btn-info w-[49%]">Apply</button>
+          <button className="btn btn-info w-[49%]">
+            {isPending ? (
+              <span className="loading loading-dots"></span>
+            ) : (
+              "Apply"
+            )}
+          </button>
           <button className="btn btn-success w-[49%]" type="button">
             Preview
           </button>
