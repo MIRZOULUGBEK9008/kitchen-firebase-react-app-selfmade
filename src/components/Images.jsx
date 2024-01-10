@@ -12,7 +12,12 @@ function Images({ images, setImages }) {
         else {
           if (images.length < 8) {
             const imageURL = validURL.href;
-            setImages((prev) => [...prev, imageURL]);
+            const imageRegex = /\.(jpg|jpeg|png|gif|bmp|svg)$/i;
+            if (imageRegex.test(imageURL)) {
+              setImages((prev) => [...prev, imageURL]);
+            } else {
+              toast.warn("It is not valid image URL");
+            }
           } else {
             toast.info("You can not upload image more than 8");
           }
