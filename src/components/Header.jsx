@@ -45,6 +45,9 @@ function Header() {
                   className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
                 >
                   <li>
+                    <NavLink to="/">Home</NavLink>
+                  </li>
+                  <li>
                     <NavLink to="/create">Create recipe</NavLink>
                   </li>
                   <li>

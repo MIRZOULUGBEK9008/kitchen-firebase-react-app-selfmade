@@ -37,8 +37,8 @@ function ChangeTheme() {
   ];
 
   return (
-    <div className="pt-5">
-      <h2 className="mb-4 text-2xl font-semibold">Change theme</h2>
+    <div className="py-10">
+      <h2 className="mb-5 text-2xl font-semibold">Change theme</h2>
       <ThemeController themes={themes} />
     </div>
   );
