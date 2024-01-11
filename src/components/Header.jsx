@@ -15,7 +15,7 @@ function Header() {
   }
   return (
     <>
-      <header className="navbar hidden bg-base-100 shadow max-[400px]:text-sm">
+      <header className="navbar bg-base-100 shadow max-[400px]:text-sm">
         <div className="my-container">
           <div className="flex-1">
             <div

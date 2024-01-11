@@ -13,7 +13,7 @@ function ThemeController({ themes }) {
     setCurrentTheme(() => theme);
   }
   return (
-    <ul className="grid grid-cols-4 gap-4">
+    <ul className="grid grid-cols-4 gap-4 max-sm:grid-cols-3">
       {themes
         ? themes.map((theme, index) => {
             return (

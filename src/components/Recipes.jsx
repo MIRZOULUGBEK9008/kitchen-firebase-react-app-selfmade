@@ -32,7 +32,10 @@ function Recipes({ recipes }) {
               >
                 <button
                   className="btn btn-circle btn-ghost btn-sm"
-                  onClick={() => handleDelete("recipes", id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete("recipes", id);
+                  }}
                 >
                   ✕
                 </button>
