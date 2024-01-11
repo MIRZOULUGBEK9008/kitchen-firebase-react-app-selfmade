@@ -13,15 +13,10 @@ function Images({ images, setImages }) {
         else {
           if (images.length < 8) {
             const imageURL = validURL.href;
-            const imageRegex = /\.(jpg|jpeg|png|gif|bmp|svg)$/i;
-            if (imageRegex.test(imageURL)) {
-              if (!isIncludeItemThisArr(images, imageURL)) {
-                setImages((prev) => [...prev, imageURL]);
-              } else {
-                toast.info("This picture already exist");
-              }
+            if (!isIncludeItemThisArr(images, imageURL)) {
+              setImages((prev) => [...prev, imageURL]);
             } else {
-              toast.warn("It is not valid image URL");
+              toast.info("This picture already exist");
             }
           } else {
             toast.info("You can not upload image more than 8");
