@@ -8,21 +8,20 @@ import { useRef } from "react";
 
 function Login() {
   const { isPending } = useGlobalContext();
-  const form = useRef(null);
   const { loginWithGoogleProvider, loginWithEmailAndPassword } = useLogin();
   function handleClick() {
     loginWithGoogleProvider();
   }
   function handleSubmit(e) {
     e.preventDefault();
-    const data = getFormData(form.current);
+    const data = getFormData(e.target);
     loginWithEmailAndPassword(data);
   }
   return (
     <div className="mx-auto flex h-full w-full max-w-sm items-center">
       <div className="flex w-full flex-col">
         <h2 className="mb-5 text-center text-2xl font-semibold">Login</h2>
-        <form className="flex flex-col gap-5" ref={form} onClick={handleSubmit}>
+        <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
           <label>
             <span className="mb-2 font-semibold">Email:</span>
             <input
