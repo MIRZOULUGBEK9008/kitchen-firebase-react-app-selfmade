@@ -1,12 +1,18 @@
+import { useNavigate } from "react-router-dom";
 import { useDeleteRecipe } from "../hooks/useDeleteRecipe";
 import { isPassed24Hours } from "../utils/isPassed24Hours";
 import { sortDescendingByCreatedDate } from "../utils/sortDescendingByCreatedDate";
 
 function Recipes({ recipes }) {
+  const navigate = useNavigate();
   const { deletedDoc } = useDeleteRecipe();
 
   function handleDelete(colName, id) {
     confirm("Do you want to delete this recipe ?") && deletedDoc(colName, id);
+  }
+
+  function manageNavigate(address) {
+    navigate(address);
   }
 
   return recipes.length > 0
@@ -18,6 +24,7 @@ function Recipes({ recipes }) {
             <li
               key={id}
               className="card relative cursor-pointer bg-base-100 shadow-md transition hover:opacity-90 hover:shadow-xl"
+              onClick={() => manageNavigate(`recipe-elements/${id}`)}
             >
               <div
                 className="tooltip tooltip-top  absolute right-2 top-2"

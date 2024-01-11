@@ -40,8 +40,8 @@ function Preview({ images, ingredients, recipeForm }) {
           </span>
         </div>
         <div>
-          <h3 className="mb5 text-xl font-semibold">Method</h3>
-          <p className="line-clamp-5">{method}</p>
+          <h3 className="mb-5 text-xl font-semibold">Method</h3>
+          <p>{method}</p>
         </div>
       </div>
     </div>

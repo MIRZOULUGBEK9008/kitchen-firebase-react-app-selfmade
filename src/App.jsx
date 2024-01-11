@@ -15,6 +15,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { auth } from "./firebase/firebaseConfig";
 import NotFound from "./pages/NotFound";
+import RecipeElements from "./pages/RecipeElements";
 
 function App() {
   const { user, dispatch, isAuthReady } = useGlobalContext();
@@ -39,6 +40,10 @@ function App() {
         {
           path: "/change-theme",
           element: user ? <ChangeTheme /> : <Navigate to="/signup" />,
+        },
+        {
+          path: "/recipe-elements/:id",
+          element: user ? <RecipeElements /> : <Navigate to="/signup" />,
         },
       ],
     },
