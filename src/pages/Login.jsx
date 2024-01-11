@@ -17,7 +17,7 @@ function Login() {
     loginWithEmailAndPassword(data);
   }
   return (
-    <div className="my-container flex h-full max-w-sm items-center">
+    <div className="my-container flex h-full max-w-sm items-center py-10">
       <div className="flex w-full flex-col">
         <h2 className="mb-5 text-center text-2xl font-semibold">Login</h2>
         <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
