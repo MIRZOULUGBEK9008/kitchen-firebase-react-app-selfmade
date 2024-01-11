@@ -14,6 +14,7 @@ import { useGlobalContext } from "./hooks/useGlobalContext";
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { auth } from "./firebase/firebaseConfig";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const { user, dispatch, isAuthReady } = useGlobalContext();
@@ -48,6 +49,10 @@ function App() {
     {
       path: "/signup",
       element: user ? <Navigate to="/" /> : <Signup />,
+    },
+    {
+      path: "*",
+      element: <NotFound />,
     },
   ]);
 

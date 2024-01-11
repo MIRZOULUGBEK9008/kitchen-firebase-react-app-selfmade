@@ -1,7 +1,14 @@
+import { useDeleteRecipe } from "../hooks/useDeleteRecipe";
 import { isPassed24Hours } from "../utils/isPassed24Hours";
 import { sortDescendingByCreatedDate } from "../utils/sortDescendingByCreatedDate";
 
 function Recipes({ recipes }) {
+  const { deletedDoc } = useDeleteRecipe();
+
+  function handleDelete(colName, id) {
+    confirm("Do you want to delete this recipe ?") && deletedDoc(colName, id);
+  }
+
   return recipes.length > 0
     ? sortDescendingByCreatedDate(recipes).map(
         ({ id, title, method, images, cookingTime, createdDate }) => {
@@ -10,8 +17,19 @@ function Recipes({ recipes }) {
           return (
             <li
               key={id}
-              className="card cursor-pointer bg-base-100 shadow-md transition hover:opacity-90 hover:shadow-xl"
+              className="card relative cursor-pointer bg-base-100 shadow-md transition hover:opacity-90 hover:shadow-xl"
             >
+              <div
+                className="tooltip tooltip-top  absolute right-2 top-2"
+                data-tip="Delete recipe"
+              >
+                <button
+                  className="btn btn-circle btn-ghost btn-sm"
+                  onClick={() => handleDelete("recipes", id)}
+                >
+                  ✕
+                </button>
+              </div>
               <div className="card-body">
                 <h2 className="card-title line-clamp-2">{title}</h2>
                 <p className="mb-2 line-clamp-3">{method}</p>

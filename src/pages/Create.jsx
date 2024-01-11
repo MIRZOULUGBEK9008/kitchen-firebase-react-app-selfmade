@@ -9,6 +9,7 @@ import { useGlobalContext } from "../hooks/useGlobalContext";
 import { useNavigate } from "react-router-dom";
 import Preview from "../components/Preview";
 import ModalPreview from "../components/ModalPreview";
+import { isReadyForPreview } from "../utils/isReadyForPreview";
 
 function Create() {
   const { user } = useGlobalContext();
@@ -16,10 +17,11 @@ function Create() {
 
   const [ingredients, setIngredients] = useState([]);
   const [images, setImages] = useState([]);
-
-  const recipeForm = useRef();
+  const [render, setRender] = useState(0);
 
   const navigate = useNavigate();
+
+  const recipeForm = useRef();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -52,8 +54,26 @@ function Create() {
     }
   }
 
+  function liveData(data) {
+    return data;
+  }
+
   function handlePreview() {
-    if (images.length > 0 && ingredients.length > 2) IDModalPreview.showModal();
+    const data = getFormData(recipeForm.current);
+    const allRecipeData = dataCollector(data, {
+      ingredients,
+      images,
+    });
+    const { checker } = isReadyForPreview(allRecipeData);
+    if (checker) {
+      setRender((prev) => prev + 1);
+      IDModalPreview.showModal();
+    } else {
+      toast.info("If you want to see Preview, you must fill inputs correctly.");
+      toast.info(
+        "Upload at least 1 picture and enter at least 3 ingredients of meal",
+      );
+    }
   }
 
   return (
@@ -127,7 +147,11 @@ function Create() {
       </div>
 
       <ModalPreview>
-        <Preview />
+        <Preview
+          recipeForm={recipeForm.current}
+          ingredients={ingredients}
+          images={images}
+        />
       </ModalPreview>
     </>
   );
