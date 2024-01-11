@@ -15,28 +15,31 @@ function Header() {
   }
   return (
     <>
-      <header className="navbar bg-base-100 shadow">
+      <header className="navbar hidden bg-base-100 shadow max-[400px]:text-sm">
         <div className="my-container">
           <div className="flex-1">
             <div
               className="tooltip tooltip-bottom"
               data-tip="You can back to Home by clicking"
             >
-              <NavLink className="btn btn-ghost text-xl" to="/">
+              <NavLink
+                className="btn btn-ghost text-xl max-[400px]:text-sm"
+                to="/"
+              >
                 Kitchen app
               </NavLink>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span>{user.displayName}</span>
+          <div className="flex items-center gap-2 max-[400px]:gap-1">
+            <span className="line-clamp-1 w-32">{user.displayName}</span>
             <div className="tooltip tooltip-bottom" data-tip="Settings">
               <div className="dropdown dropdown-end">
                 <div
                   tabIndex={0}
                   role="button"
-                  className="avatar btn btn-circle btn-ghost"
+                  className="avatar btn btn-circle  btn-ghost max-[400px]:btn-sm"
                 >
-                  <div className="w-10 rounded-full">
+                  <div className="w-10 rounded-full max-[400px]:w-6">
                     <img alt="Avatar" src={user.photoURL} />
                   </div>
                 </div>
