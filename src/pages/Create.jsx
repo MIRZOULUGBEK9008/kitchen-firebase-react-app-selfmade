@@ -128,7 +128,7 @@ function Create() {
             ></textarea>
           </label>
           <div className="flex w-full justify-between">
-            <button className="btn btn-info w-[49%]">
+            <button className="btn btn-info w-[49%]" disabled={isPending}>
               {isPending ? (
                 <span className="loading loading-dots"></span>
               ) : (

@@ -44,7 +44,7 @@ function Login() {
           <Button style={primary} text={"Login"} type={"submit"}></Button>
           <button
             className="btn btn-neutral"
-            disabled={isPending ? true : false}
+            disabled={isPending}
             onClick={handleClick}
           >
             {isPending ? (
